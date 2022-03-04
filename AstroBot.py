@@ -5,31 +5,7 @@ from discord.ext import commands
 import random
 
 #inboxes
-M = [] #my inbox
-Jv = [] #Jayvi 
-L = [] #Loisse
-Jez = [] #Jez
-Jon = [] #Jon 
-Jan = [] #Jan
-P = [] #Phil
-Pi = [] #Pierre
-Mu = [] #MarkU
-D = [] #Dan
-A = [] #Anthony
-
-roster = {
-  "Light#5080": M,
-  "JΛY#9372": Jv,
-  "hunhan#1081": L,
-  "SsugareB#6693": Jez,
-  "K.Irvin27#9556": Jon,
-  "Nenn#5067": Jan,
-  "๖ۣۣۜRed#0001": P,
-  "Moonlit6224#3574": Pi,
-  "MarkU#7285": Mu,
-  "yuuta#0005": D,
-  "Antiwan#3720": A
-}
+roster = {}
 
 client = commands.Bot(command_prefix = '>')
 
@@ -66,6 +42,33 @@ async def hi(ctx):
   else:
     await ctx.send('hello')
 
+#Admin commands --------------------------------------
+admin_key = "199597758741479425"
+#check current roster
+@client.command(aliases= ['roster'])
+async def check_roster(ctx):
+  if (str(ctx.author.id) == admin_key):
+    await ctx.send('roster: ' + str(roster.keys())[9:])
+
+#remove inbox
+@client.command(aliases= ['remove'])
+async def _remove(ctx, name):
+  if (str(ctx.author.id) == admin_key):
+    if (name in roster):
+      roster.pop(name)
+      await ctx.send(name + " removed")
+#------------------------------------------------------
+
+      
+#initialize inbox
+@client.command(aliases= ['mkbox'])
+async def _mkinbox(ctx):
+  author = str(ctx.author)
+  if (not (author in roster)):
+    roster[author] = []
+  else:
+    await ctx.send("Inbox already exist")
+
 #how many messages
 @client.command(aliases= ['box'])
 async def _inbox(ctx):
@@ -73,13 +76,15 @@ async def _inbox(ctx):
   if (author in roster):
     messages = str(len(roster[author]))
     await ctx.send(messages + " message(s)")
+  else:
+    await ctx.send("Inbox does not exist")
     
 #send messages
 @client.command(aliases= ['send'])
 async def _send(ctx, *, message):
   author = message.split(' ', 1)[0]
-  if (author[2:] in roster):
-    roster[author[2:]].append(message)
+  if (author in roster):
+    roster[author].append(message.split(' ', 1)[1])
   await ctx.message.delete()
   
 #read messages
@@ -90,7 +95,7 @@ async def _open(ctx):
     message = str(roster[author].pop())
     await ctx.send("anonymous: " + message)
 
-
+#8ball
 @client.command(aliases=['8ball'])
 async def _8ball(ctx, *, question):
   responses = ['It is Certain.', 
@@ -114,6 +119,112 @@ async def _8ball(ctx, *, question):
               'Outlook not so good.',
               'Very doubtful.']
   await ctx.send(random.choice(responses))
+
+#TIC TAC TOE game
+#default board
+x = [[1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9], 
+     0]
+#in game
+in_game = {}
+
+#invites sent
+queue = []
+
+def printB(key):
+  board = '``` '
+  for i in range (len(x) - 1):
+      for j in range (len(x[i])):
+          if (j != 2):
+            board = board + str(in_game[key][i][j]) + '  |  '
+          else:
+            board = board + str(in_game[key][i][j])
+      if (i != 2):
+        board = board + "\n "
+  board = board + ' ```'
+  return board
+
+@client.command(aliases=['t'])
+async def TTT(ctx, key):
+  await ctx.send(printB(key))
+
+#Player makes a move
+@client.command(aliases=['tic', 'tac', 'toe'])
+async def turn(ctx, key, spot):
+  spot = (int(spot))
+  player = str(ctx.author)
+  if (player in str(key)):
+    if (in_game[key][3] % 2 == 0): #even, 0,2,4...
+      if ((spot >= 1) & (spot <= 3)):
+        in_game[key][0][spot - 1] = 'O'
+      elif ((spot >= 4) & (spot <= 6)):
+        in_game[key][1][spot - 4] = 'O'
+      elif ((spot >= 7) & (spot <= 9)):
+        in_game[key][2][spot - 7] = 'O'
+      else:
+        await ctx.send('invalid spot')
+    else: #odd, 1,3,5...
+      if ((spot >= 1) & (spot <= 3)):
+        in_game[key][0][spot - 1] = 'X'
+      elif ((spot >= 4) & (spot <= 6)):
+        in_game[key][1][spot - 4] = 'X'
+      elif ((spot >= 7) & (spot <= 9)):
+        in_game[key][2][spot - 7] = 'X'
+      else:
+        await ctx.send('invalid spot')
+    in_game[key][3] += 1
+  await ctx.send(printB(key))
+  await ctx.send('Total Moves: ' + str(in_game[key][3]))
+
+#SEND invite------------------------------------------------
+@client.command(aliases = ['i', 'inv', 'invite'])
+async def _game(ctx, invite):
+  author = str(ctx.author)
+  key = author + str(invite)
+  if (not(key in queue)):
+    queue.append(key)
+  else:
+    await ctx.send("already sent an invite to " + invite)
+
+#ACCEPT 
+@client.command(aliases = ['k', 'okey', 'accept'])
+async def _accept(ctx, host):
+  author = str(ctx.author)
+  key = str(host) + author
+  if (key in queue):
+    queue.remove(key)
+    in_game[key] = x.copy()
+    await ctx.send('KEY: ' + key)
+    await ctx.send(printB(key))
+  else:
+    await ctx.send(host + " has not given you an invite")
+
+#DECLINE 
+@client.command(aliases = ["n, no, decline"])
+async def _decline(ctx, host):
+  author = str(ctx.author)
+  key = str(host) + author
+  if (key in queue):
+    queue.remove(key)
+  else:
+    await ctx.send(host + " has not given you an invite")
+
+#-----------------------------------------------------------
+    
+#Admin commands --------------------------------------
+#check current queue
+@client.command(aliases= ['q', 'queue'])
+async def check_queue(ctx):
+  if (str(ctx.author.id) == admin_key):
+    await ctx.send('players in queue ' + str(queue))
+
+#check current in_game
+@client.command(aliases= ['ingame', 'ig', 'inGame'])
+async def check_in_game(ctx):
+  if (str(ctx.author.id) == admin_key):
+    await ctx.send('players in game ' + str(in_game.keys())[9:])
+#------------------------------------------------------
 
 @client.command()
 async def say(ctx, *, repeat):
