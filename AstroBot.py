@@ -17,6 +17,7 @@ async def on_ready():
   await client.change_presence(status=discord.Status.online,     activity=discord.Game("creator: Light"))
   print('ASTRO_BOT STATUS: ONLINE')
 
+#Custom reponses to different users
 @client.command(aliases=['hello', 'Hello', 'HELLO'])
 async def hi(ctx):
   message_author = str(ctx.author)
@@ -152,7 +153,6 @@ async def turn(ctx, key, spot):
   if (player in str(key)):
     if (in_game[key][3] % 2 == 0):          #even, 0,2,4...
       in_game[key][pos[0]][pos[1]] = 'O'
-      print(x)
       win_condition = check_board(pos, 'O', key)
     else:                                   #odd, 1,3,5...
       in_game[key][pos[0]][pos[1]] = 'X'
@@ -179,8 +179,7 @@ def check_board(pos, letter, key):
   
   if (row or col or diag):
     return True
-  else:
-    return False
+  return False
 
 #Check row
 def  check_row(pos, letter, board):
@@ -201,7 +200,7 @@ def check_diagonal(pos, letter, board):
   diagonal1 = [board[i][i] for i in range(len(board[0]))]
   diagonal2 = [board[i][len(board[0]) - 1 - i] for i in range(len(board[0]))]
 
-  if (((pos[0] == 0) & (pos[1] == 0)) | ((pos[0] == 2) & (pos[1] == 2))):
+  if ((pos[0] == 0) & (pos[1] == 0)) | ((pos[0] == 2) & (pos[1] == 2)):
     for i in range (len(diagonal1)):
       if diagonal1[i] != letter:
         return False
@@ -209,7 +208,7 @@ def check_diagonal(pos, letter, board):
     for j in range (len(diagonal2)):
       if diagonal2[j] != letter:
         return False
-  return 
+  return True
 #--------------------------------------------------------------------------------------------
 #INVITING AND ACCEPTING------------------------------------------------------------
 #INVITE
@@ -236,7 +235,7 @@ async def _accept(ctx, host):
     await ctx.send(host + " has not given you an invite")
 
 #DECLINE 
-@client.command(aliases = ["n, no, decline"])
+@client.command(aliases = ['n', 'no', 'decline'])
 async def _decline(ctx, host):
   author = str(ctx.author)
   key = str(host) + author
@@ -271,13 +270,13 @@ async def remove_from_roster(ctx, name):
 @client.command(aliases= ['q', 'queue'])
 async def check_queue(ctx):
   if (str(ctx.author.id) == admin_key):
-    await ctx.send('players in queue ' + str(queue))
+    await ctx.send('players in queue: ' + str(queue))
 
 #check current in_game
 @client.command(aliases= ['ingame', 'ig', 'inGame'])
 async def check_in_game(ctx):
   if (str(ctx.author.id) == admin_key):
-    await ctx.send('players in game ' + str(in_game.keys())[9:])
+    await ctx.send('players in game: ' + str(in_game.keys())[9:])
     
 #ADMIN COMMANDS **********************************************************
 
@@ -294,7 +293,7 @@ async def on_message_delete(message):
   if (not (">send" in message.content[:5])):
     
     chan2 = client.get_channel(945143392667570236) #pepe
-    chan3 = client.get_channel(946986698166923295) #geng
+    chan3 = client.get_channel(946986698166923295) #squad
   
     await chan2.send("AUTHOR: " + message_author + "\n" + "MESSAGE:\n" + message.content)
     await chan3.send("AUTHOR: " + message_author + "\n" + "MESSAGE:\n" + message.content)
