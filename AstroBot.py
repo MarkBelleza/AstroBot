@@ -246,9 +246,29 @@ async def _decline(ctx, host):
 #-------------------------------------------------------------------------------------------
 #Tic Tac Toe Game END HERE ----
 
+@client.command(aliases = ['commands', 'com', 'c'])
+async def _help(ctx):
+  commands = ('```COMMANDS:' + "\n" +
+">mkbox => create your inbox. (people will be able to send messages to you anonymously." + "\n" +
+">send (userID#1234) (message here) => send message to userID#1234. Receiver will not know the sender." + "\n" +
+">box => display how many messages are in your inbox." + "\n" +
+">read => open message from inbox one at a time (from most recent to oldest)." + "\n" +
+">invite (userID#1234) => invite userID#1234 to play TicTacToe (for now, will add more games in future updates)." + "\n" +
+">accept => accept userID#1234's TicTacToe invitation. The TicTacToe board will be displayed along with the KEY." + "\n" +
+">tic (KEY) (position number) => places 'X' or 'O' on the board according to the position number given." + "\n" +
+"NOTE: The KEY is used to differentiate you from other players who are also playing TicTacToe. In other words," + "\n" +
+"     multiple people should be able to play TicTacToe simultaneously." + "\n" + 
+"Next Updates:" + "\n" +
+"- Possibly improve TicTacToe so that only one person at a time can make moves." + "\n" +
+"- Add Scoring System (may take a while)" + "\n" +
+"- Add Hangman game (may take a while)" + "\n" +
+"- Add Guess the number game (not a priority thus may take a while)" + "\n" +
+"- Add a status profile (may be added along scoring system)" + "\n" +
+"- Add fortune cookie system. Winning games may reward you a fortune cookie. Opening a fortune cookie will tell" + "\n" +
+"  you a fortune. (may be added along scoring system)" + "\n" +
+"- Bug: sometimes messages from inbox will disapear in about 5hr after it is sent. (may take a while to fix)```")
+  await ctx.send(commands)
 
-
-    
 #ADMIN COMMANDS ************************************************************
 admin_key = "199597758741479425"
 
