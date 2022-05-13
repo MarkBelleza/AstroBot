@@ -11,13 +11,13 @@ the user will need to create an account by enetring the command "<new".
 Anonymous Messaging:
 
 To view your inbox enter "<inbox"
-~insert image here~
+-insert image here-
 
 To send a message enter "<send {DiscordName#123} {message here}"
-~insert image here~
+-insert image here-
 
 To open messaage enter "<read" (will read the most recent message)
-~insert image here~
+-insert image here-
 
 
 Tic Tac Toe:
@@ -26,7 +26,7 @@ Tic Tac Toe:
 2. User invited needs to accept the invite, "<accept {DiscordNameofUserthatInvitedYou#123}
 3. Start playing by entering, "<tic #position"
 
-~insert image~
+-insert image here-
 
 
 Miscellaneous features
