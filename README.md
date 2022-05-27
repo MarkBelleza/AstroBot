@@ -28,7 +28,7 @@ Tic Tac Toe:
 -insert image here-
 
 
-Miscellaneous features
+Miscellaneous features:
 
 - Deleted messages log (deleted messages are send to a another text channel for keeping track of messages)
 - 8ball, ask AstroBot for its opinion on random things :) (ask by entering "<8ball {question}"
