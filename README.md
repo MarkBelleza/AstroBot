@@ -1,6 +1,5 @@
 # AstroBot
 Discord Bot. Send anonymous messages, play mini games and keep track of everyone's messages!
-(still in progress)
 
 poetry.txt -> poetry.lock,
 pyproject.txt -> pyproject.toml
