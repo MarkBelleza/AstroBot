@@ -14,10 +14,10 @@ To view your inbox enter "<inbox"
 ![inbox](https://user-images.githubusercontent.com/98550319/170899771-da1fc5a0-bc0f-40f0-8cc6-ee51b16f42cb.png)
 
 To send a message enter "<send {DiscordName#123} {message here}"
--insert image here-
+
 
 To open messaage enter "<read" (will read the most recent message)
--insert image here-
+
 
 
 Tic Tac Toe:
