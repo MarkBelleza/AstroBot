@@ -33,7 +33,7 @@ Miscellaneous features:
 
 - Deleted messages log (deleted messages are send to a another text channel for keeping track of messages)
 
-![msgLog](https://user-images.githubusercontent.com/98550319/170899837-0a542c46-1126-44e2-8564-5cd6b7c94fce.mp4)
+https://user-images.githubusercontent.com/98550319/170899837-0a542c46-1126-44e2-8564-5cd6b7c94fce.mp4
 
 - 8ball, ask AstroBot for its opinion on random things :) (ask by entering "<8ball {question}"
 
