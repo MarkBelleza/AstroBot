@@ -358,7 +358,7 @@ async def on_message_delete(message):
     print('bot')
   elif  (not (("<send" in message.content.split(' ', 1)[0]) | ('<s' in message.content.split(' ', 1)[0]))):
     chan2 = client.get_channel(945143392667570236) #pepe
-    chan3 = client.get_channel(946986698166923295) #squad
+    chan3 = client.get_channel(946986698166923295) #squad The text channels are hard coded for now, these are the two text channels that acts as message logs
   
     await chan2.send("AUTHOR: " + message_author + "\n" + "MESSAGE:\n" + message.content)
     await chan3.send("AUTHOR: " + message_author + "\n" + "MESSAGE:\n" + message.content)
