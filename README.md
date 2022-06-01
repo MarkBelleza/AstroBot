@@ -35,7 +35,7 @@ Miscellaneous features:
 
 https://user-images.githubusercontent.com/98550319/170899837-0a542c46-1126-44e2-8564-5cd6b7c94fce.mp4
 
-- 8ball, ask AstroBot for its opinion on random things :) (ask by entering "<8ball {question}"
+- 8ball, ask AstroBot for opinions on random things :) (ask by entering "<8ball {question}"
 
 ![8ball](https://user-images.githubusercontent.com/98550319/170899885-e68be8ad-d828-4946-974b-de10034b1df8.png)
 
