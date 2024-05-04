@@ -16,7 +16,7 @@ To view your inbox enter "<inbox"
 To send a message enter "<send {DiscordName#123} {message here}"
 
 
-To open messaage enter "<read" (will read the most recent message)
+To open message enter "<read" (will read the most recent message)
 
 
 
